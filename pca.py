@@ -33,7 +33,7 @@ A = get_data(C)
 # first calculate mean then subtract from each data point in the col
 # our features are in the cols for each image...
 # center the data of matrix A making PCA=SVD
-means = np.mean(A,axis=1).reshape(m,1)
+means = np.mean(A.T,axis=0).reshape(m,1)
 A -= means
 
 # perform the svd function now on the data now
@@ -44,7 +44,7 @@ PC = V_t.T*s
 # np.dot(np.diag(s),V_t) which would be must slower
 
 # this matrix is now composed of rows that are the principal components 
-# cols which are data points
+# cols which are data points (in reduced dimension)
 
 # TODO
 # Step 3: Generate the first five eigenfaces 
@@ -54,11 +54,9 @@ for image in xrange(5):
 
 # TODO
 # Step 4: Randomly pick 10 persons and plot their first two principal components
-# arrays to be used for plotting
 rand_img = []
 # x = []
 # y = []
-# checks for the cluster to have at least have one data point
 count = 0
 while count < 10:
 	rand_index = random.randint(0,39) #randint(a,b) chooses x s.t a <= x <= b
@@ -66,7 +64,7 @@ while count < 10:
 		rand_img.append(rand_index)
 		start = rand_index*10
 		end  = 10*(rand_index+1)
-		#x.append(PC[0][start:end]) <-- uneeded parts of code.... line 73 works all into one 
+		#x.append(PC[0][start:end]) <-- uneeded parts of code.... line 71 works all into one 
 		#y.append(PC[1][start:end])
 		m = markers[count]
 		c = colors[count]	
